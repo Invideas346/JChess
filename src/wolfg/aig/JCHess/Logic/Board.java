@@ -1,4 +1,5 @@
 package wolfg.aig.JCHess.Logic;
 
-public class Pieces {
+public class Board {
+
 }

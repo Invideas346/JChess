@@ -1,0 +1,3 @@
+//TODO: Should the window reference and the input be made a singleton?
+//TODO: Figure out how the Game-Class should be structured internally
+//TODO: Figure out a nice way to to queue render calls from the Game-Class to a specific Master Renderer

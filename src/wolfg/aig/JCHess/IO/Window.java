@@ -13,10 +13,10 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public final class Window implements IWindow{
     private long window;
-    private String title;
-    private int height;
-    private int width;
-    private RGBA clearColor;
+    private final String title;
+    private final int height;
+    private final int width;
+    private final RGBA clearColor;
 
     public Window(String title, int width, int height) {
         this.title = title;
@@ -36,7 +36,7 @@ public final class Window implements IWindow{
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
 
-        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        // Set up a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
@@ -51,14 +51,15 @@ public final class Window implements IWindow{
             glfwGetWindowSize(window, pWidth, pHeight);
 
             // Get the resolution of the primary monitor
-            GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            GLFWVidMode videomode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
             // Center the window
-            glfwSetWindowPos(
-                    window,
-                    (vidmode.width() - pWidth.get(0)) / 2,
-                    (vidmode.height() - pHeight.get(0)) / 2
-            );
+            if (videomode != null)
+                glfwSetWindowPos(
+                        window,
+                        (videomode.width() - pWidth.get(0)) / 2,
+                        (videomode.height() - pHeight.get(0)) / 2
+                );
         } // the stack frame is popped automatically
 
         // Make the OpenGL context current
